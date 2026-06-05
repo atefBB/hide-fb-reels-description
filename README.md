@@ -8,12 +8,11 @@ When watching Facebook Reels, the description text often covers the bottom half 
 
 ## How It Works
 
-The extension uses multiple strategies to find and hide the description element:
+The extension uses two strategies to find and hide the description element:
 
-- **Attribute selectors** — targets `aria-label` and `role` attributes that Facebook assigns to the description container
-- **Structural selectors** — finds the Reels viewer container (`data-pagelet="ReelsViewer"`) and identifies overlays within it
-- **Position-based selectors** — detects absolutely-positioned elements at the bottom of the reel viewer
-- **Gradient detection** — catches the gradient overlay that often accompanies the description
+1. **Class name pattern (fast)** — Targets the specific CSS class combination used by Facebook's description container. This is the fastest strategy and runs first.
+
+2. **"Show more" button text matching (reliable)** — Finds the "Show more" button (with `role="button"`) inside the description by its text content, then hides its parent element. This works across languages (Arabic, English, French, Spanish, German, Italian, Portuguese, Indonesian, Vietnamese, Thai, Japanese, Chinese, and more).
 
 Facebook is a single-page application (SPA), so swiping to a new reel doesn't reload the page. The extension uses a `MutationObserver` with debouncing to detect when new reels are loaded and automatically re-hides the description.
 
@@ -21,6 +20,7 @@ Facebook is a single-page application (SPA), so swiping to a new reel doesn't re
 
 - ✅ Hides the description overlay on any Facebook Reel
 - ✅ Works on dynamic page transitions (swipe between reels)
+- ✅ Multi-language support (14 languages)
 - ✅ Toggle on/off via the extension popup
 - ✅ State is persisted across browser sessions
 - ✅ Lightweight — no unnecessary permissions
@@ -56,7 +56,6 @@ The setting persists across browser sessions via `chrome.storage.sync`.
 ```
 ├── manifest.json          # Extension manifest (Manifest V3)
 ├── content.js             # Content script — finds and hides description elements
-├── styles.css             # Reference copy — CSS rules are embedded in content.js
 ├── popup.html             # Popup UI
 ├── popup.css              # Popup styles
 ├── popup.js               # Popup logic — toggle, state management
@@ -84,15 +83,15 @@ Works on any Chromium-based browser (Chrome 88+):
 
 **The description is still showing.**
 
-Facebook frequently updates its DOM structure, which can break the selectors. To fix this:
+Facebook frequently updates its DOM structure, which can break the selectors. If the extension stops working:
 
 1. Right-click the description text on a Reel and select **Inspect**
-2. Look for a stable attribute on the container element (e.g., `aria-label`, `role`, `data-pagelet`)
-3. Open an issue with the selector that worked for you
+2. Note the CSS class names on the description container element
+3. Open an issue with the updated class names and the "Show more" button text
 
 **The toggle doesn't seem to do anything.**
 
-Try refreshing the Facebook tab after toggling. The CSS rules apply immediately, but Facebook caches some DOM elements aggressively.
+Refresh the Facebook tab after toggling. The extension hides elements that are already in the DOM — some reels may need a refresh for the change to take effect.
 
 ## License
 
