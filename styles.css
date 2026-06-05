@@ -1,0 +1,27 @@
+/* ── Hide Facebook Reels Description — CSS Rules ────────────────────── */
+/* These provide instant hiding before JavaScript runs.                  */
+
+/* Hide description elements by common attributes */
+div[aria-label="Description"],
+span[aria-label="Description"],
+div[aria-label*="description" i],
+span[aria-label*="description" i] {
+  display: none !important;
+}
+
+/* Hide the description container within the Reels viewer */
+[data-pagelet="ReelsViewer"] [role="complementary"],
+[data-pagelet="ReelsViewer"] [role="contentinfo"] {
+  display: none !important;
+}
+
+/* Hide bottom positioned overlays in the reel viewer */
+[data-pagelet="ReelsViewer"] div[style*="position: absolute"][style*="bottom"],
+[data-pagelet="ReelsViewer"] div[style*="position:absolute"][style*="bottom"] {
+  display: none !important;
+}
+
+/* Hide gradient overlays at the bottom (often holds description) */
+[data-pagelet="ReelsViewer"] div[style*="linear-gradient"][style*="bottom"] {
+  display: none !important;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HF Reels Description</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="4" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+      </svg>
+      <h1>Reels Description</h1>
+    </div>
+
+    <label class="toggle-row">
+      <span class="toggle-label">Hide description</span>
+      <div class="toggle-track">
+        <input type="checkbox" id="toggle" checked />
+        <div class="toggle-thumb"></div>
+      </div>
+    </label>
+
+    <p class="hint">
+      Hides the caption/description overlay on Facebook Reels so you can see the full video.
+    </p>
+
+    <p class="status" id="status">Refresh the page after toggling.</p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
